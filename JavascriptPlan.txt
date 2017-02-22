@@ -1,5 +1,5 @@
 OverView/Introduction
-Suntax and Placement
+Syntax and Placement
 Variables and Operators
 Conditional Statements
 Looping
