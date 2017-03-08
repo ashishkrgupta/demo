@@ -1,0 +1,14 @@
+private InputStream compress(InputStream in, String entryName) throws IOException {
+        final int BUFFER = 2048;
+        byte buffer[] = new byte[BUFFER];
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ZipOutputStream zos = new ZipOutputStream(out);
+        zos.putNextEntry(new ZipEntry(entryName));
+        int length;
+        while ((length = in.read(buffer)) > 0) {
+            zos.write(buffer, 0, length);
+        }
+        zos.closeEntry();
+        zos.close();
+        return new ByteArrayInputStream(out.toByteArray();
+}
