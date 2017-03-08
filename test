@@ -1,1 +1,119 @@
-
+import java.util.Arrays;
+ 
+public class BerlinClock {
+ 
+       String second;
+       char[] topHour = new char[4];
+       char[] bottomHour = new char[4];
+       char[] topMin = new char[11];
+       char[] bottomMin = new char[4];
+       final char RED = 'R';
+       final char YELLOW = 'Y';
+       final char OFF = 'O';
+ 
+       public String topHours(int hr) {
+              setHour(hr);
+              return new String(topHour);
+       }
+ 
+       public String bottomHours(int hr) {
+              setHour(hr);
+              return new String(bottomHour);
+       }
+ 
+       public String topMinutes(int min) {
+              setMinutes(min);
+              return new String(topMin);
+       }
+ 
+       public String bottomMinutes(int min) {
+              setMinutes(min);
+              return new String(bottomMin);
+       }
+ 
+       public String seconds(int sec) {
+              setSecond(sec);
+              return second;
+       }
+ 
+       public String[] convertToBerlinTime(String time) {
+              String[] timeSlice = time.split(":");
+              setHour(Integer.valueOf(timeSlice[0]));
+              setMinutes(Integer.valueOf(timeSlice[1]));
+              setSecond(Integer.valueOf(timeSlice[2]));
+              StringBuilder sb = new StringBuilder();
+              sb.append(second);
+              sb.append("," + new String(topHour));
+              sb.append("," + new String(bottomHour));
+              sb.append("," + new String(topMin));
+              sb.append("," + new String(bottomMin));
+              return sb.toString().split(",");
+       }
+      
+       private void setMinutes(int min){
+              int topM = min/5;
+              int bottomM = min%5;
+              for (int i = 0; i < topMin.length; i++){
+                     if (i < topM && ((i+1) % 3) == 0){
+                           topMin[i] = RED;
+                     } else {
+                           topMin[i] = i < topM ? YELLOW : OFF;
+                     }
+              }
+              for (int i = 0; i < bottomMin.length; i++){
+                     bottomMin[i] = i < bottomM ? YELLOW : OFF;
+              }
+       }
+ 
+       private void setHour(int hr) {
+              int topHrs = hr/5;
+              int bottomHrs = hr%5;
+              for (int i = 0; i < topHour.length; i++){
+                     topHour[i] = i < topHrs ? RED : OFF;
+              }
+              for (int i = 0; i < bottomHour.length; i++){
+                     bottomHour[i] = i < bottomHrs ? RED : OFF;
+              }
+       }
+ 
+       private void setSecond(int sec) {
+              if (sec % 2 == 0){
+                     second = "Y";
+              } else {
+                     second = "O";
+              }
+       }
+      
+       public static void main(String[] args) {
+              BerlinClock bc = new BerlinClock();
+              System.out.println(bc.seconds(0));
+              System.out.println(bc.seconds(1));
+              System.out.println(bc.seconds(59));
+              System.out.println();
+              System.out.println(bc.topHours(7).length());
+              System.out.println();
+              System.out.println(bc.topHours(0));
+              System.out.println(bc.topHours(13));
+              System.out.println(bc.topHours(23));
+              System.out.println(bc.topHours(24));
+              System.out.println();
+              System.out.println(bc.bottomHours(5).length());
+              System.out.println(bc.bottomHours(0));
+              System.out.println(bc.bottomHours(13));
+              System.out.println(bc.bottomHours(23));
+              System.out.println(bc.bottomHours(24));
+              System.out.println();
+              System.out.println(bc.topMinutes(34).length());
+              System.out.println(bc.topMinutes(0));
+              System.out.println(bc.topMinutes(17));
+              System.out.println(bc.topMinutes(59));
+              System.out.println();
+              System.out.println(bc.bottomMinutes(0).length());
+              System.out.println(bc.bottomMinutes(0));
+              System.out.println(bc.bottomMinutes(17));
+              System.out.println(bc.bottomMinutes(59));
+              System.out.println();
+              System.out.println(bc.convertToBerlinTime("13:17:01").length);
+              System.out.println(Arrays.asList( bc.convertToBerlinTime("16:37:16")));
+       }
+}
