@@ -45,3 +45,9 @@ String url4e = "http://w1.weather.gov/xml/current_obs/CWAV.xml";
 		//
 		// in.close();
 		// System.out.println("PRINTING HERE!!!");
+
+
+//http://w1.weather.gov/xml/current_obs/index.xml
+//http://w1.weather.gov/xml/current_obs/CWAV.xml
+
+http://stackoverflow.com/questions/32979124/jsoup-exception-invalid-url
